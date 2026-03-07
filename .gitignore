@@ -20,6 +20,18 @@ parts/
 sdist/
 var/
 wheels/
+
+
+# --- Node.js / Tailwind (Add these) ---
+node_modules/
+.parcel-cache
+dist/
+
+# --- Vercel (Add these) ---
+.vercel
+
+# --- Secrets ---
+.env
 share/python-wheels/
 *.egg-info/
 .installed.cfg
