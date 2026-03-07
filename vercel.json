@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "npx @tailwindcss/cli -i ./static/css/input.css -o ./static/css/output.css",
+  "buildCommand": "npx @tailwindcss/cli -i ./website/static/css/input.css -o ./website/static/css/output.css",
   "builds": [
     {
       "src": "index.py",
@@ -8,14 +8,14 @@
       "config": { "runtime": "python3.11" }
     },
     {
-      "src": "static/**",
+      "src": "website/static/**",
       "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/static/(.*)",
-      "dest": "/static/$1"
+      "dest": "/website/static/$1"
     },
     {
       "src": "/(.*)",
