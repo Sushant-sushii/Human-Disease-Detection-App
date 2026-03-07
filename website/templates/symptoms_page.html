@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Jeevan - Human Disease Detection{% endblock %}</title>
+    <link rel="icon" href="{{ url_for('static', filename='Jeevan_favicon.png') }}" type="image/png" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
+</head>
+
+<body>
+    <div
+        class="fixed inset-0 z-[-1] h-full w-full bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px]">
+    </div>
+    <div class="min-h-screen ml-5 mr-5">
+        <h1 class="mt-5 flex justify-center text-4xl font-semibold text-[#d8cdcde9] md:text-5xl ">Tell us your symptoms
+        </h1>
+
+        <!-- General Health Questions -->
+
+        <div class="max-w-2xl mt-4 mx-auto p-8 bg-slate-900 text-white rounded-3xl border border-slate-800 shadow-2xl">
+            <h2 class="text-3xl font-bold mb-2"> <span class="text-yellow-400 capitalize">General questions</span></h2>
+            <p class="text-slate-400 mb-8">Please provide details to help Jeevan AI analyze your condition.</p>
+            <!-- form form general symp -->
+            <form method="POST" class="space-y-6">
+                <div class="space-y-4">
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-slate-800/40 backdrop-blur-md border border-slate-800 p-4 rounded-2xl">
+                            <label class="flex items-center space-x-3 cursor-pointer">
+                                <input type="checkbox" id="fever-check" onchange="toggleFeverInput()" name="common"
+                                    value="has fever" class="w-5 h-5 accent-amber-200 rounded  bg-slate-800">
+                                <span class="text-gray-200 font-medium">Fever 🤒</span>
+                            </label>
+
+                            <div id="fever-input-container" class="hidden mt-4 transition-all duration-300">
+                                <label class="block text-sm text-slate-400 mb-2">Current Temperature (°C)</label>
+                                <input type="number" id="fever-temp" name="fever-temp" step="0.1"
+                                    placeholder="e.g. 38.5"
+                                    class="w-full bg-slate-900/50 border border-slate-600 rounded-xl p-3 text-white focus:ring-2 focus:ring-indigo-500 outline-none ">
+                            </div>
+                        </div>
+                        <label
+                            class="flex items-center gap-3 p-4 bg-slate-800 rounded-xl cursor-pointer hover:bg-slate-700">
+                            <input type="checkbox" name="common" value="Smoker" class="w-5 h-5 accent-amber-200">
+                            <span>Smoke 🚬</span>
+                        </label>
+
+                        <label
+                            class="flex items-center gap-3 p-4 bg-slate-800 rounded-xl cursor-pointer hover:bg-slate-700">
+                            <input type="checkbox" name="common" value="recent surgery"
+                                class="w-5 h-5 accent-amber-200">
+                            <span>Recent Surgery ?</span>
+                        </label>
+                        <label
+                            class="flex items-center gap-3 p-4 bg-slate-800 rounded-xl cursor-pointer hover:bg-slate-700">
+                            <input type="checkbox" name="common" value="diabetic" class="w-5 h-5 accent-amber-200">
+                            <span>Diabetic ?</span>
+                        </label>
+                        <label
+                            class="flex items-center gap-3 p-4 bg-slate-800 rounded-xl cursor-pointer hover:bg-slate-700">
+                            <input type="checkbox" name="common" value="fatigue" class="w-5 h-5 accent-amber-200">
+                            <span>Fatigue</span>
+                        </label>
+                        <label
+                            class="flex items-center gap-3 p-4 bg-slate-800 rounded-xl cursor-pointer hover:bg-slate-700">
+                            <input type="checkbox" name="common" value="Exercise regularly"
+                                class="w-5 h-5 accent-amber-200">
+                            <span>Exercise regularly?</span>
+                        </label>
+                    </div>
+                </div>
+
+
+
+
+                <!-- General Health Questions ends -->
+
+
+                <!-- form for head -->
+                <div
+                    class="max-w-2xl mt-5 mx-auto p-8 bg-slate-900 text-white rounded-3xl border border-slate-800 shadow-2xl">
+                    <h2 class="text-3xl font-bold mb-2">Health Assessment : <span class="text-yellow-400 capitalize">{{
+                            part
+                            }}</span></h2>
+                    <p class="text-slate-400 mb-8">Please provide details to help Jeevan AI analyze your condition.</p>
+
+
+
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-semibold border-b border-slate-700 pb-2 capitalize">{{ part }}
+                            Specifics
+                        </h3>
+                        <div class="grid grid-cols-1 gap-3">
+
+
+
+
+                            <!-- head -->
+                            {% if part == 'head' %}
+                            <label class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg"><input type="checkbox"
+                                    name="symptom" value="Severe headache"> Severe Headache</label>
+                            <label class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg"><input type="checkbox"
+                                    name="symptom" value="dizziness"> Dizziness /
+                                Vertigo</label>
+
+                            <div class="space-y-4">
+                                <label class="block text-sm font-medium text-slate-400 ml-1">Where in the head?</label>
+
+                                <div class="relative w-full" id="custom-dropdown">
+                                    <button type="button" onclick="toggleDropdown()" class="w-full flex items-center justify-between p-4 
+                       bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl 
+                       text-white text-left focus:ring-2 focus:ring-blue-500/50 outline-none transition-all">
+                                        <span id="selected-value">Select Region</span>
+                                        <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </button>
+
+                                    <div id="dropdown-menu" class="hidden absolute z-50 w-full mt-2 p-2 
+                    bg-slate-900/90 backdrop-blur-xl border border-white/10 rounded-2xl 
+                    shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+
+                                        <div onclick="selectOption('Top of Head', 'Cranium / Vertex')"
+                                            class="group flex flex-col p-3 rounded-xl hover:bg-white/10 cursor-pointer transition-colors"
+                                            name="Affecting Head part" value="Cranium
+                                                / Vertex">
+                                            <span class="text-white">Top of Head</span>
+                                            <span
+                                                class="text-[10px] text-blue-400/60 uppercase tracking-tighter">Cranium
+                                                / Vertex</span>
+                                        </div>
+
+                                        <div onclick="selectOption('Back of Head', 'Occipital Region')"
+                                            class="group flex flex-col p-3 rounded-xl hover:bg-white/10 cursor-pointer transition-colors">
+                                            <span class="text-white">Back of Head</span>
+                                            <span
+                                                class="text-[10px] text-blue-400/60 uppercase tracking-tighter">Occipital
+                                                Region</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input type="hidden" name="head_part" id="head_part_input">
+
+                            <!-- face organs -->
+                            <label class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg"><input type="checkbox"
+                                    name="symptom_for_face" value="face" id="face-check" onchange="toggleFaceInput()">
+                                Other than head?</label>
+                            <div class="space-y-4 hidden" id="face-section">
+                                <label class="block text-sm font-medium text-slate-400 ml-1">Which part?</label>
+
+                                <div class="relative w-full" id="custom-dropdown-face">
+                                    <button type="button" onclick="toggleDropdownforFace()" class="w-full flex items-center justify-between p-4 
+           bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl 
+           text-white text-left focus:ring-2 focus:ring-blue-500/50 outline-none transition-all">
+
+                                        <span id="selected-value-for-face">Select Region</span>
+
+                                        <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </button>
+
+                                    <div id="dropdown-menu-for-face" class="hidden absolute z-50 w-full mt-2 p-2 
+            bg-slate-900/90 backdrop-blur-xl border border-white/10 rounded-2xl 
+            shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+
+                                        <div onclick="selectOptionForFace('Eyes')"
+                                            class="group flex flex-col p-3 rounded-xl hover:bg-white/10 cursor-pointer transition-colors"
+                                            name="face" value="Eyes">
+                                            <span class="text-white">Eyes</span>
+                                        </div>
+
+                                        <div onclick="selectOptionForFace('Nose')"
+                                            class="group flex flex-col p-3 rounded-xl hover:bg-white/10 cursor-pointer transition-colors "
+                                            name="face" value="Nose">
+                                            <span class="text-white">Nose</span>
+                                        </div>
+                                        <div onclick="selectOptionForFace('Mouth')"
+                                            class="group flex flex-col p-3 rounded-xl hover:bg-white/10 cursor-pointer transition-colors"
+                                            name="face" value="Mouth">
+                                            <span class="text-white">Mouth</span>
+                                        </div>
+                                        <div onclick="selectOptionForFace('Tongue')"
+                                            class="group flex flex-col p-3 rounded-xl hover:bg-white/10 cursor-pointer transition-colors"
+                                            name="face" value="Tongue">
+                                            <span class="text-white">Tongue</span>
+                                        </div>
+                                        <div onclick="selectOptionForFace('Teeth')"
+                                            class="group flex flex-col p-3 rounded-xl hover:bg-white/10 cursor-pointer transition-colors"
+                                            name="face" value="Teeth">
+                                            <span class="text-white">Teeth</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" name="head_part_for_face" id="head_part_input_for_face">
+
+                            <!-- chest -->
+                            {% elif part == 'chest' %}
+                            <div class="space-y-4" id="chest-section">
+                                <label class="block text-sm font-medium text-slate-400 ml-1">Which part of the
+                                    chest / torso ?</label>
+
+                                <div class="relative w-full" id="custom-dropdown-chest">
+                                    <button type="button" onclick="toggleDropdownChest()"
+                                        class="w-full flex items-center justify-between p-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl text-white text-left focus:ring-2 focus:ring-blue-500/50 outline-none transition-all">
+                                        <span id="selected-value-chest">Select Region</span>
+                                        <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </button>
+
+                                    <div id="dropdown-menu-chest"
+                                        class="hidden absolute z-50 w-full mt-2 p-2 bg-slate-900/90 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl">
+                                        <div onclick="selectChestOption('Heart')"
+                                            class="p-3 rounded-xl hover:bg-white/10 cursor-pointer text-white">Heart
+                                        </div>
+                                        <div onclick="selectChestOption('Lungs')"
+                                            class="p-3 rounded-xl hover:bg-white/10 cursor-pointer text-white">Lungs
+                                        </div>
+                                        <div onclick="selectChestOption('Liver')"
+                                            class="p-3 rounded-xl hover:bg-white/10 cursor-pointer text-white">Liver
+                                        </div>
+                                        <div onclick="selectChestOption('Stomach')"
+                                            class="p-3 rounded-xl hover:bg-white/10 cursor-pointer text-white">Stomach
+                                        </div>
+                                        <div onclick="selectChestOption('Kidney')"
+                                            class="p-3 rounded-xl hover:bg-white/10 cursor-pointer text-white">Kidney
+                                        </div>
+                                        <div onclick="selectChestOption('Abdomen')"
+                                            class="p-3 rounded-xl hover:bg-white/10 cursor-pointer text-white">Abdomen
+                                        </div>
+                                        <div onclick="selectChestOption('Ribs')"
+                                            class="p-3 rounded-xl hover:bg-white/10 cursor-pointer text-white">Ribs
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="chest-questions-container" class="mt-4 space-y-3">
+                                    <div id="heart-questions" class="hidden space-y-2">
+                                        <label
+                                            class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg text-sm"><input
+                                                type="checkbox" name="symptom" value="palpitations">
+                                            Palpitations/Irregular Beat</label>
+                                        <label
+                                            class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg text-sm"><input
+                                                type="checkbox" name="symptom" value="chest-pain"> Sharp Chest
+                                            Pain</label>
+                                    </div>
+                                    <div id="lungs-questions" class="hidden space-y-2">
+                                        <label
+                                            class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg text-sm"><input
+                                                type="checkbox" name="symptom" value="shortness-breath"> Shortness of
+                                            Breath</label>
+                                        <label
+                                            class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg text-sm"><input
+                                                type="checkbox" name="symptom" value="cough"> Persistent Cough</label>
+                                    </div>
+                                    <div id="liver-questions" class="hidden space-y-2">
+                                        <label
+                                            class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg text-sm"><input
+                                                type="checkbox" name="symptom" value="jaundice"> Yellowing of
+                                            Skin/Eyes</label>
+                                        <label
+                                            class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg text-sm"><input
+                                                type="checkbox" name="symptom" value="upper-right-pain"> Upper Right
+                                            Tenderness</label>
+                                    </div>
+                                    <div id="stomach-questions" class="hidden space-y-2">
+                                        <label
+                                            class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg text-sm"><input
+                                                type="checkbox" name="symptom" value="nausea"> Nausea/Vomiting</label>
+                                        <label
+                                            class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg text-sm"><input
+                                                type="checkbox" name="symptom" value="bloating"> Severe Bloating</label>
+                                    </div>
+                                    <div id="kidney-questions" class="hidden space-y-2">
+                                        <label
+                                            class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg text-sm"><input
+                                                type="checkbox" name="symptom" value="flank-pain"> Side/Back (Flank)
+                                            Pain</label>
+                                        <label
+                                            class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg text-sm"><input
+                                                type="checkbox" name="symptom" value="urination-change"> Changes in
+                                            Urination</label>
+                                    </div>
+                                    <div id="abdomen-questions" class="hidden space-y-2">
+                                        <label
+                                            class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg text-sm"><input
+                                                type="checkbox" name="symptom" value="cramps"> Abdominal Cramps</label>
+                                        <label
+                                            class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg text-sm"><input
+                                                type="checkbox" name="symptom" value="swelling"> Visible
+                                            Swelling</label>
+                                    </div>
+                                    <div id="ribs-questions" class="hidden space-y-2">
+                                        <label
+                                            class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg text-sm"><input
+                                                type="checkbox" name="symptom" value="rib-tenderness"> Tenderness to
+                                            Touch</label>
+                                        <label
+                                            class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg text-sm"><input
+                                                type="checkbox" name="symptom" value="pain-on-breath"> Pain when
+                                            Breathing Deeply</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" name="chest_part" id="chest_part_input">
+                            <!-- neck section -->
+                            {% elif part == 'neck' %}
+                            <div class="space-y-4" id="neck-section">
+                                <label class="block text-sm font-medium text-slate-400 ml-1">Which part of the
+                                    neck?</label>
+
+                                <div class="relative w-full" id="custom-dropdown-neck">
+                                    <button type="button" onclick="toggleDropdownNeck()"
+                                        class="w-full flex items-center justify-between p-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl text-white text-left focus:ring-2 focus:ring-blue-500/50 outline-none transition-all">
+                                        <span id="selected-value-neck">Select Region</span>
+                                        <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </button>
+
+                                    <div id="dropdown-menu-neck"
+                                        class="hidden absolute z-50 w-full mt-2 p-2 bg-slate-900/90 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl">
+                                        <div onclick="selectNeckOption('Throat')"
+                                            class="p-3 rounded-xl hover:bg-white/10 cursor-pointer text-white">Throat
+                                        </div>
+                                        <div onclick="selectNeckOption('Lymph Nodes')"
+                                            class="p-3 rounded-xl hover:bg-white/10 cursor-pointer text-white">Lymph
+                                            Nodes</div>
+                                        <div onclick="selectNeckOption('Thyroid')"
+                                            class="p-3 rounded-xl hover:bg-white/10 cursor-pointer text-white">Thyroid
+                                            Area</div>
+                                        <div onclick="selectNeckOption('Cervical Spine')"
+                                            class="p-3 rounded-xl hover:bg-white/10 cursor-pointer text-white">Back of
+                                            Neck (Spine)</div>
+                                    </div>
+                                </div>
+
+                                <div id="neck-questions-container" class="mt-4 space-y-3">
+                                    <div id="throat-questions" class="hidden space-y-2">
+                                        <label
+                                            class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg text-sm"><input
+                                                type="checkbox" name="symptom" value="sore-throat"> Difficulty
+                                            Swallowing</label>
+                                        <label
+                                            class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg text-sm"><input
+                                                type="checkbox" name="symptom" value="hoarseness"> Hoarseness/Voice
+                                            Change</label>
+                                    </div>
+
+                                    <div id="lymph-nodes-questions" class="hidden space-y-2">
+                                        <label
+                                            class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg text-sm"><input
+                                                type="checkbox" name="symptom" value="swollen-nodes"> Swollen/Tender
+                                            Lumps</label>
+                                        <label
+                                            class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg text-sm"><input
+                                                type="checkbox" name="symptom" value="node-stiffness"> Neck
+                                            Stiffness</label>
+                                    </div>
+
+                                    <div id="thyroid-questions" class="hidden space-y-2">
+                                        <label
+                                            class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg text-sm"><input
+                                                type="checkbox" name="symptom" value="thyroid-swelling"> Visible
+                                            Swelling in Front</label>
+                                        <label
+                                            class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg text-sm"><input
+                                                type="checkbox" name="symptom" value="pressure-feeling"> Constant
+                                            Pressure Feeling</label>
+                                    </div>
+
+                                    <div id="cervical-spine-questions" class="hidden space-y-2">
+                                        <label
+                                            class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg text-sm"><input
+                                                type="checkbox" name="symptom" value="neck-immobility"> Restricted
+                                            Movement</label>
+                                        <label
+                                            class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg text-sm"><input
+                                                type="checkbox" name="symptom" value="nerve-tingling"> Tingling Down
+                                            Arms</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input type="hidden" name="neck_part" id="neck_part_input">
+
+
+                            <!-- ears -->
+                            {% elif part == 'ear' %}
+                            <label class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg"><input type="checkbox"
+                                    name="symptom" value="Bleeding">Bleeding</label>
+                            <label class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg"><input type="checkbox"
+                                    name="symptom" value="Redness"> Redness</label>
+                            <label class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg"><input type="checkbox"
+                                    name="symptom" value="Severe Pain with mucus">Severe Pain with mucus</label>
+                            <label class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg"><input type="checkbox"
+                                    name="symptom" value="buzzing sound inside ear">Buzzing sound inside ear</label>
+
+                            <!-- hand -->
+                            {% elif part == 'hand' %}
+                            <label class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg"><input type="checkbox"
+                                    name="symptom" value="numbness" onchange="toggleNumbInput()" id="numb-check">
+                                Numbness in fingers</label>
+
+                            <div id="numb-input-container" class="hidden mt-4 transition-all duration-300">
+                                <label class="block text-sm text-slate-400 mb-2">Which finger ?</label>
+                                <input type="text" id="numb-finger" step="0.1" placeholder="e.g. index"
+                                    class="w-full bg-slate-900/50 border border-slate-600 rounded-xl p-3 text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+                            </div>
+
+                            <label class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg"><input type="checkbox"
+                                    name="symptom" value="swelling " onchange="toggleSwellInput()" id="swell-check">
+                                Swelling in Joints</label>
+
+                            <div id="swell-input-container" class="hidden mt-4 transition-all duration-300">
+                                <label class="block text-sm text-slate-400 mb-2">When did the swelling start?</label>
+                                <input type="text" id="swell-time" step="0.1" placeholder="e.g. past 2 days"
+                                    class="w-full bg-slate-900/50 border border-slate-600 rounded-xl p-3 text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+                            </div>
+
+                            <label class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg"><input type="checkbox"
+                                    name="symptom" value="Shoulder Ache">Shoulder Ache</label>
+
+                            <label class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg"><input type="checkbox"
+                                    name="symptom" value="weak grip" id="grip-check" onchange="toggleGripInput()">Weak
+                                grip ?</label>
+
+
+                            <div id="grip-input-container" class="hidden mt-4 transition-all duration-300">
+                                <label class="block text-sm text-slate-400 mb-2">Rate your grip strength (1-10)</label>
+                                <input type="text" id="grip-rating" step="0.1" placeholder="e.g. 7"
+                                    class="w-full bg-slate-900/50 border border-slate-600 rounded-xl p-3 text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+                            </div>
+
+                            <label class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg"><input type="checkbox"
+                                    name="symptom" value="Cracking Sound">Cracking Sound</label>
+                            <!-- legs -->
+                            {% elif part == 'leg' %}
+
+
+                            <label class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg"><input type="checkbox"
+                                    name="symptom" value="swelling" id="swell-check" onchange="toggleSwellInput()">
+                                Swelling in Joints</label>
+
+                            <div id="swell-input-container" class="hidden mt-4 transition-all duration-300">
+                                <label class="block text-sm text-slate-400 mb-2">Is it in one leg or both ?</label>
+                                <input type="text" id="swell-time" step="0.1" placeholder="e.g. one leg"
+                                    class="w-full bg-slate-900/50 border border-slate-600 rounded-xl p-3 text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+                            </div>
+
+                            <label class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg"><input type="checkbox"
+                                    name="symptom" value="numbness in leg" onchange="toggleNumbInputLeg()"
+                                    id="numb-check-leg">
+                                Numbness</label>
+
+                            <div id="numb-input-container-leg" class="hidden mt-4 transition-all duration-300">
+                                <label class="block text-sm text-slate-400 mb-2">Describe the area ?</label>
+                                <input type="text" id="numb-leg" step="0.1" placeholder="e.g.  toes, calf"
+                                    class="w-full bg-slate-900/50 border border-slate-600 rounded-xl p-3 text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+                            </div>
+
+
+                            <label class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg"><input type="checkbox"
+                                    name="symptom" value="pain in leg" id="pain-check" onchange="togglePainInput()">Pain
+                                in leg ?</label>
+
+
+                            <div id="pain-input-container" class="hidden mt-4 transition-all duration-300">
+                                <label class="block text-sm text-slate-400 mb-2">Rate your pain (1-10)</label>
+                                <input type="number" id="pain-rating" step="0.1" placeholder="e.g. 7"
+                                    class="w-full bg-slate-900/50 border border-slate-600 rounded-xl p-3 text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+                            </div>
+
+
+                            <label class="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg"><input type="checkbox"
+                                    name="symptom" value="Injury In Leg"> Injury In Leg?</label>
+
+
+
+
+
+                            {% endif %}
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <div class="space-y-2">
+                    <label class="text-sm text-slate-400">Tell Us How You Feel...</label>
+                    <textarea name="additional_info" rows="4"
+                        class="w-full mt-3 bg-slate-800 border border-slate-700 rounded-2xl p-4 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
+                        placeholder="Describe your symptoms in your own words..." ></textarea>
+                </div>
+                <button type="submit"
+                    class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-2xl transition-all shadow-lg shadow-blue-900/20">
+                    Submit for Analysis
+                </button>
+
+
+            </form>
+        </div>
+
+        <!-- ends -->
+
+
+
+    </div>
+
+    <script src="{{ url_for('static', filename='js/symptoms.js') }}"></script>
+</body>
+
+</html>

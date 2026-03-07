@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeevan Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
+    <style>
+        /* THE ULTIMATE PDF FIX */
+        @media print {
+            /* 1. Hide everything by default */
+            .no-print, .fixed, .absolute { display: none !important; }
+            
+            /* 2. Reset the background and text color for the whole page */
+            body { 
+                background: white !important; 
+                color: #000 !important; 
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            /* 3. Force the container to be visible and black */
+            .glass-card {
+                background: white !important;
+                border: 1px solid #ddd !important;
+                color: black !important;
+                box-shadow: none !important;
+                backdrop-filter: none !important;
+                margin-bottom: 10px !important;
+            }
+
+            /* 4. OVERRIDE PROSE-INVERT: This is why your text was invisible */
+            .prose { color: black !important; }
+            .prose * { color: black !important; }
+            .prose h1, .prose h2, .prose h3 { color: #1e40af !important; }
+            
+            /* 5. Ensure grid elements stack correctly for paper */
+            .grid { display: block !important; }
+            .lg\:col-span-2, .lg\:col-span-1 { width: 100% !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-200 min-h-screen p-4 md:p-10 font-sans">
+
+    <div class="fixed inset-0 -z-10 overflow-hidden no-print">
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-cyan-600/10 rounded-full blur-[120px]"></div>
+    </div>
+
+    <div class="max-w-4xl mx-auto space-y-6">
+        
+        <div class="flex items-center justify-between bg-white/5 border border-white/10 p-6 rounded-3xl backdrop-blur-xl glass-card">
+            <div>
+                <h1 class="text-2xl font-bold text-blue-400">Jeevan AI Analysis</h1>
+                <p class="text-slate-400">Focus Area: <span class="text-white uppercase">{{ part }}</span></p>
+            </div>
+            <a href="/" class="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-xl text-sm transition-all no-print">← Back Home</a>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-1 bg-white/5 border border-white/10 p-6 rounded-3xl backdrop-blur-xl h-fit glass-card">
+                <h3 class="text-lg font-semibold mb-4 border-b border-white/10 pb-2">Your Input</h3>
+                <div class="space-y-4 text-sm">
+                    <div class="print-row">
+                        <p class="text-slate-500">Symptoms</p>
+                        <p class="text-slate-200">{{ symptoms_list }}</p>
+                    </div>
+                    <div class="print-row">
+                        <p class="text-slate-500">Temp</p>
+                        <p class="text-slate-200">{{ temp }}°C</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2 bg-white/5 border border-white/10 p-8 rounded-3xl backdrop-blur-xl glass-card">
+                <h3 class="text-xl font-bold mb-6 text-cyan-300">Assessment Report</h3>
+                
+                <div class="prose prose-invert max-w-none space-y-4 text-slate-300">
+                    {{ diagnosis | safe }}
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-white/10 flex gap-4 no-print">
+                    <button onclick="window.print()" class="flex-1 py-3 bg-blue-600 hover:bg-blue-500 rounded-xl font-bold transition-all shadow-lg shadow-blue-500/20">Download PDF</button>
+                    <button onclick="window.history.back()" class="flex-1 py-3 bg-white/10 hover:bg-white/20 rounded-xl font-bold transition-all border border-white/10">Re-Analyze</button>
+                </div>
+            </div>
+        </div>
+
+        <p class="text-center text-xs text-slate-500 uppercase tracking-tighter no-print">
+            Note: This AI is for information only. If symptoms are severe, go to the Emergency Room.
+        </p>
+    </div>
+
+</body>
+</html>

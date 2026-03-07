@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Jeevan - Human Disease Detection{% endblock %}</title>
+    <link rel="icon" href="{{ url_for('static', filename='Jeevan_favicon.png') }}" type="image/png" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
+</head>
+
+<body>
+
+    <div
+        class="fixed inset-0 z-[-1] h-full w-full bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px]">
+    </div>
+
+
+    <h1 class="mt-5 flex justify-center text-4xl font-semibold text-[#d8cdcde9] md:text-5xl ">Where does it hurt?</h1>
+    <p class="flex justify-center   text-[#d8cdcde9] text-[1.1rem]mt-5 "> Tap to let Jeevan know.</p>
+
+    <div class="relative items-center flex-col flex justify-center mt-9 ">
+
+        <div  id="human_head" class="flex justify-center items-center">
+
+            <div data-part="ear" class="clickable-part rounded-lg space-x-1 bg-stone-400 h-[1.25rem] w-[.5rem] shadow ease-in-out hover:bg-yellow-500"></div>
+
+            <div data-part="head" class=" clickable-part rounded-t-[15%] rounded-b-[50%] bg-stone-400 h-[4rem] w-[4rem] shadow ease-in-out hover:bg-yellow-500"></div>
+
+            <div data-part="ear" class="clickable-part rounded-lg space-x-1 bg-stone-400 h-[1.25rem] w-[.5rem] shadow ease-in-out hover:bg-yellow-500"></div>
+
+        </div>
+
+
+        <div data-part="neck"  id="neck"  class="clickable-part rounded-b-lg rounded-2xl mt-0.5 bg-stone-400 h-[1.25rem] w-[1.25rem] shadow ease-in-out hover:bg-yellow-500"></div>
+
+
+     <div id="upper_body" class="flex justify-center h-[50%] w-[50%] gap-x-4 items-center ">
+        <div  data-part="hand" class="clickable-part rounded-full  rotate-[20deg] bg-stone-400 h-[10rem] w-[1.5rem]  shadow ease-in-out hover:bg-yellow-500"></div>
+        <div data-part="chest" id="chest" class=" clickable-part rounded-t-[40%] rounded-2xl mt-1 bg-stone-400 h-[10rem] w-[7rem] shadow ease-in-out hover:bg-yellow-500"></div>
+
+        <div data-part="hand" class="clickable-part rounded-full  rotate-[160deg] bg-stone-400 h-[10rem] w-[1.5rem]  shadow ease-in-out hover:bg-yellow-500" ></div>
+     </div>
+
+    <div id="lower_body" class="flex justify-center  items-center mt-0.5">
+
+
+
+   <div class="flex justify-center gap-4 mt-2">
+  
+  <div data-part="leg" id="left_leg" class=" clickable-part flex flex-col items-center">
+    <div class="h-24 w-10 bg-stone-400 rounded-t-full rounded-b-2xl -rotate-[2deg] shadow-sm hover:bg-yellow-500"></div>
+    <div class="clickable-part h-[7rem] w-7 bg-stone-400 rounded-t-lg rounded-b-full -mt-2 shadow-sm hover:bg-yellow-500"></div>
+  </div>
+
+  <div  id="right_leg" class="flex flex-col items-center">
+    <div data-part="leg" class=" clickable-part h-24 w-10 bg-stone-400 rounded-t-full rounded-b-2xl rotate-[2deg] shadow-sm hover:bg-yellow-500"></div>
+    <div data-part="leg" class=" clickable-part h-[7rem] w-7 bg-stone-400 rounded-t-lg rounded-b-full -mt-2 shadow-sm hover:bg-yellow-500"></div>
+  </div>
+  
+</div>
+
+
+
+    </div>
+
+    </div>
+
+<script>
+  document.querySelectorAll('.clickable-part').forEach(element => {
+    element.addEventListener('click', () => {
+      const part = element.getAttribute('data-part');
+      window.location.href = `/diagnose/${part}`;
+    });
+  });
+</script>
+   
+</body>
+
+</html>

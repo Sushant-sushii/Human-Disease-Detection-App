@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Jeevan - Human Disease Detection{% endblock %}</title>
+    <link rel="icon" href="{{ url_for('static', filename='Jeevan_favicon.png') }}" type="image/png" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
+</head>
+
+<body class="bg-[#00091d] text-stone-300 antialiased">
+
+    <div
+        class="fixed inset-0 z-[-1] h-full w-full bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px]">
+    </div>
+
+    <div class="relative min-h-screen overflow-x-hidden">
+
+        <nav class="container mx-auto px-4 md:px-20">
+            <div class="flex flex-col md:flex-row items-center justify-between py-6 gap-6 md:gap-0">
+
+                <div class="flex items-center">
+                    <img src="{{ url_for('static', filename='Jeevan_favicon.png') }}" alt="Logo"
+                        class="w-14 h-14 md:w-20 md:h-20 object-contain">
+                    <span
+                        class="ml-3 text-4xl font-bold tracking-tighter text-stone-100 md:hidden tracking-widest">JEEVAN</span>
+                </div>
+
+                <div class="flex flex-wrap justify-around items-center gap-6 md:gap-12 text-sm md:text-base">
+                    <a href="#" class="transition-colors hover:text-amber-200 font-medium tracking-widest">Home</a>
+                    <a href="#" class="transition-colors hover:text-amber-200 font-medium tracking-widest">About</a>
+                    <a href="/diagnose" class="transition-colors hover:text-amber-200 font-medium tracking-widest">Diagnose</a>
+                    <a href="#" class="transition-colors hover:text-amber-200 font-medium tracking-widest">Contact</a>
+                </div>
+            </div>
+        </nav>
+
+        <main class="container mx-auto px-6 py-2 text-center">
+            <h1
+                class="text-4xl py-2 tracking-tight bg-clip-text text-transparent bg-linear-to-r from-stone-300 to-stone-600  md:text-6xl font-bold   mb-4">
+                Jeevan Disease Diagnostic.</h1>
+            <p class="text-stone-400 max-w-md mx-auto  ">Advanced Human Disease Detection Powered by AI.</p>
+        </main>
+
+        <div class="container mx-auto px-6 py-12 text-center flex justify-around flex-wrap">
+
+
+            <div class="overflow-hidden w-md bg-cover  rounded-3xl opacity-75 max-h-10/12">
+                <img src="{{ url_for('static', filename='stetscope.jpg') }}" alt="Sthecoscope">
+            </div>
+
+            <div class="w-100 h-100  flex flex-wrap flex-col my-15">
+                <h2
+                    class="text-5xl/14 text-start font-semibold py-2 tracking-tight bg-clip-text text-transparent bg-linear-to-r from-stone-300 to-stone-600 ">
+                    Your <span class="bg-green-700 text-amber-50"> Health</span>  , Deciphered by <span class="bg-red-800 text-amber-50">  Intelligence</span> .
+                </h2>
+                <br>
+                <p class="text-stone-300 tracking-wide text-start">Empowering lives through rapid, AI-driven disease
+                    detection. Precision you can trust, care you can feel.</p>
+
+                <button class="rounded-2xl text-lg tracking-wide p-5 mt-15  bg-indigo-900  text-amber-50 ease-in-out hover:bg-indigo-800 ease-in duration-200 "><a href="/diagnose" class="px-28 py-4">Diagnose Now</a></button>
+            </div>
+
+        </div>
+
+        <!-- Process Section -->
+
+        <section class="py-24 bg-jeevan-dark">
+    <div class="container mx-auto px-6 text-center">
+        <h2 class="text-4xl font-bold tracking-tight bg-clip-text text-transparent bg-linear-to-r from-stone-300 to-stone-600 mb-16">How <span class="font-bold tracking-tight bg-clip-text text-transparent bg-linear-to-r from-sky-300 to-sky-600 ">Jeevan</span> Works</h2>
+        
+        <div class="relative flex flex-col md:flex-row justify-between items-center gap-12">
+            <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-jeevan-blue/20 -z-10"></div>
+
+            <div class="flex flex-col items-center bg-jeevan-dark p-6 rounded-full border border-jeevan-blue/30 w-64 h-64 justify-center shadow-[0_0_20px_rgba(173,232,244,0.1)]">
+                <span class="text-jeevan-orange text-sm  mb-2">01.</span>
+                <h3 class="text-xl font-bold mb-2">Upload</h3>
+                <p class="text-xs text-gray-400 text-center">Securely drop your medical scans or data.</p>
+            </div>
+
+            <div class="flex flex-col items-center bg-jeevan-dark p-6 rounded-full border border-jeevan-red/30 w-72 h-72 justify-center shadow-[0_0_30px_rgba(217,4,41,0.2)] scale-110">
+                <span class="text-jeevan-red text-sm font-Inter  mb-2">02.</span>
+                <h3 class="text-xl font-bold font-Inter mb-2">Analyze</h3>
+                <p class="text-xs text-gray-400 text-center">AI Neural Networks cross-reference 10k+ verified cases.</p>
+            </div>
+
+              <div class="flex flex-col items-center bg-jeevan-dark p-6 rounded-full border border-jeevan-blue/30 w-64 h-64 justify-center shadow-[0_0_20px_rgba(173,232,244,0.1)]">
+                <span class="text-jeevan-orange text-sm  mb-2">03.</span>
+                <h3 class="text-xl font-bold mb-2">Result</h3>
+                <p class="text-xs text-gray-400 text-center">
+                      Instant preliminary report for your doctor.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Process section ends -->
+
+<!-- Bento section starts -->
+
+<section class="py-24 bg-jeevan-dark">
+    <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[250px]">
+            
+            <div class="md:col-span-2 md:row-span-2 bg-jeevan-brown/20 border border-white/10 rounded-3xl p-8 overflow-hidden relative group">
+                <div class="relative z-10">
+                    <h3 class="text-3xl font-bold text-white mb-4">Neural Intelligence</h3>
+                    <p class="text-jeevan-blue font-sans max-w-md">Our proprietary model detects anomalies in chest X-rays and MRI scans with 98% sensitivity, identifying patterns invisible to the human eye.</p>
+                </div>
+                <div class="absolute -bottom-10 -right-10 w-64 h-64 bg-jeevan-red/20 rounded-full blur-3xl group-hover:bg-jeevan-red/40 transition-all"></div>
+            </div>
+
+            <div class="bg-jeevan-red p-8 rounded-3xl flex flex-col justify-end">
+                <h4 class="text-white text-4xl font-black mb-2 tracking-tighte font-sans">&lt; 2s</h4>
+                <p class="text-white/80 text-sm font-sans font-bold uppercase">Processing Time</p>
+            </div>
+
+            <div class="bg-jeevan-orange p-8 rounded-3xl flex flex-col justify-end">
+                <h4 class="text-jeevan-brown text-2xl font-bold mb-2 font-sans">256-bit</h4>
+                <p class="text-jeevan-brown/80 text-sm font-bold uppercase font-sans">Encryption Standard</p>
+            </div>
+
+            <div class="md:col-span-3 bg-white/5 border border-white/10 rounded-3xl p-8 flex items-center justify-between">
+                <div>
+                    <h3 class="text-2xl font-bold text-white">Extensive Dataset</h3>
+                    <p class="text-gray-400">Trained on a global library of verified clinical samples.</p>
+                </div>
+                <div class="flex -space-x-4">
+                    <div class="w-12 h-12 rounded-full bg-jeevan-blue border-2 border-jeevan-dark"></div>
+                    <div class="w-12 h-12 rounded-full bg-jeevan-orange border-2 border-jeevan-dark"></div>
+                    <div class="w-12 h-12 rounded-full bg-jeevan-red border-2 border-jeevan-dark"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Bento section ends -->
+
+<!-- footer section starts -->
+<footer class="bg-jeevan-brown text-white pt-20 pb-10">
+    <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+            
+            <div class="col-span-1 md:col-span-1">
+                <div class="flex items-center gap-2 mb-6">
+                    <div class="w-10 h-10 bg-jeevan-blue rounded-full flex items-center justify-center text-jeevan-brown font-black text-xl">j</div>
+                    <span class="text-2xl font-bold tracking-tighter text-jeevan-blue">JEEVAN</span>
+                </div>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    Advancing healthcare through accessible AI diagnostics. Our mission is to provide early detection tools to everyone, everywhere.
+                </p>
+            </div>
+
+            <div>
+                <h4 class="text-jeevan-orange font-bold uppercase tracking-widest text-xs mb-6">Platform</h4>
+                <ul class="space-y-4 text-sm text-gray-300">
+                    <li><a href="/" class="hover:text-jeevan-blue transition-colors">Home</a></li>
+                    <li><a href="/diagnose" class="hover:text-jeevan-blue transition-colors">AI Diagnostic</a></li>
+                    <li><a href="#" class="hover:text-jeevan-blue transition-colors">Medical Research</a></li>
+                    <li><a href="#" class="hover:text-jeevan-blue transition-colors">API for Labs</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-jeevan-orange font-bold uppercase tracking-widest text-xs mb-6">Resources</h4>
+                <ul class="space-y-4 text-sm text-gray-300">
+                    <li><a href="#" class="hover:text-jeevan-blue transition-colors">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-jeevan-blue transition-colors">Terms of Service</a></li>
+                    <li><a href="#" class="hover:text-jeevan-blue transition-colors">Documentation</a></li>
+                    <li><a href="#" class="hover:text-jeevan-blue transition-colors">Help Center</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-jeevan-orange font-bold uppercase tracking-widest text-xs mb-6">Stay Updated</h4>
+                <p class="text-gray-400 text-sm mb-4">Get the latest updates in AI medical tech.</p>
+                <form class="flex">
+                    <input type="email" placeholder="Email" class="bg-white/5 border border-white/10 px-4 py-2 rounded-l-lg focus:outline-none focus:border-jeevan-blue w-full text-sm">
+                    <button class="bg-jeevan-red hover:bg-red-700 px-4 py-2 rounded-r-lg transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
+            <p>© 2026 JEEVAN AI Diagnostics. Not a replacement for professional medical advice.</p>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-white">Twitter</a>
+                <a href="#" class="hover:text-white">LinkedIn</a>
+                <a href="#" class="hover:text-white">GitHub</a>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Footer ends -->
+
+    </div>
+</body>
+
+</html>
