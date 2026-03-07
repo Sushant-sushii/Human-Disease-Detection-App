@@ -1,10 +1,15 @@
 {
   "version": 2,
+  "buildCommand": "npx @tailwindcss/cli -i ./static/css/input.css -o ./static/css/output.css",
   "builds": [
     {
       "src": "index.py",
       "use": "@vercel/python",
       "config": { "runtime": "python3.11" }
+    },
+    {
+      "src": "static/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
