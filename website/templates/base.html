@@ -50,7 +50,7 @@
                 <img src="{{ url_for('static', filename='stetscope.jpg') }}" alt="Sthecoscope">
             </div>
 
-            <div class="w-100 h-100  flex flex-wrap flex-col my-15">
+            <div class="w-100 h-150  gap-[1.2rem] flex flex-wrap flex-col my-15">
                 <h2
                     class="text-5xl/14 text-start font-semibold py-2 tracking-tight bg-clip-text text-transparent bg-linear-to-r from-stone-300 to-stone-600 ">
                     Your <span class="bg-green-700 text-amber-50"> Health</span>  , Deciphered by <span class="bg-red-800 text-amber-50">  Intelligence</span> .
@@ -59,7 +59,9 @@
                 <p class="text-stone-300 tracking-wide text-start">Empowering lives through rapid, AI-driven disease
                     detection. Precision you can trust, care you can feel.</p>
 
-                <button class="rounded-2xl text-lg tracking-wide p-5 mt-15  bg-indigo-900  text-amber-50 ease-in-out hover:bg-indigo-800 ease-in duration-200 "><a href="/diagnose" class="px-28 py-4">Diagnose Now</a></button>
+               <div class="mt-6">
+                 <button><a href="/diagnose" class="rounded-2xl text-lg tracking-wide   bg-indigo-900  text-amber-50 ease-in-out hover:bg-indigo-800 ease-in duration-200 md:p-5 mt-15  px-8 py-[1.2rem]">Diagnose Now</a></button>
+               </div>
             </div>
 
         </div>

@@ -8,7 +8,7 @@ symptoms = Blueprint('symptoms', __name__)
 # CONFIGURATION
 # Using 2.5 Flash for the best balance of speed and helpfulness
 MODEL_ID = "gemini-2.5-flash" 
-client = genai.Client(api_key="AIzaSyBPB6DrcGFxV-1wKoACkh3daQHzOw2t17g") 
+client = genai.Client(api_key="AIzaSyDSNiIgGnyXE_AxgIidnqqEN_rpYRvc_2M") 
 
 @symptoms.route('/<part_name>', methods=['GET', 'POST'])
 def symptoms_page(part_name):
