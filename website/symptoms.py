@@ -2,13 +2,16 @@ from flask import Blueprint, render_template, request
 from google import genai
 from google.genai import types
 import markdown 
+import os
 
 symptoms = Blueprint('symptoms', __name__)
 
 # CONFIGURATION
 # Using 2.5 Flash for the best balance of speed and helpfulness
 MODEL_ID = "gemini-2.5-flash" 
-client = genai.Client(api_key="AIzaSyDSNiIgGnyXE_AxgIidnqqEN_rpYRvc_2M") 
+api_key = os.getenv("GOOGLE_API_KEY")
+client = genai.Client(api_key=api_key)
+
 
 @symptoms.route('/<part_name>', methods=['GET', 'POST'])
 def symptoms_page(part_name):
