@@ -3,7 +3,9 @@ from google import genai
 from google.genai import types
 import markdown 
 import os
+from dotenv import load_dotenv
 
+load_dotenv()
 symptoms = Blueprint('symptoms', __name__)
 
 # CONFIGURATION
